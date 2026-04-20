@@ -7,16 +7,9 @@ terraform {
   }
 }
 
-resource "google_storage_bucket" "crukbackend" {
-  name = "cruk-bkt-backend"
-  location = "US"
-  uniform_bucket_level_access = true
-
-}
-
 terraform {
   backend "gcs" {
-    bucket  = "cruk-bkt-backend"
+    bucket  = "cruk-bucket-four"
     prefix  = "terraform/state"
   }
 }
