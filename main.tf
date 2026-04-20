@@ -9,7 +9,7 @@ terraform {
 
 terraform {
   backend "gcs" {
-    bucket  = "cruk-bucket-four"
-    prefix  = "terraform/state"
+    bucket = "cruk-bucket-four"
+    prefix = "terraform/state"
   }
 }
