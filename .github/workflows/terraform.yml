@@ -27,7 +27,11 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        workload_identity_provider: '	projects/224658168565/locations/global/workloadIdentityPools/github-demo-pool/providers/github'
+        service_account: 'wlfcruk@do-not-delete-444606.iam.gserviceaccount.com'
+	
+
+
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -41,18 +45,14 @@ jobs:
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+    
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
